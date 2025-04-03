@@ -35,6 +35,16 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Duración</label>
+            <input type="number" name="duracion" class="form-control" value="{{ $pelicula->duracion }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Edad mínima</label>
+            <input type="number" name="edad_minima" class="form-control" value="{{ $pelicula->edad_minima }}" required>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Observaciones</label>
             <textarea name="observaciones" class="form-control" rows="3">{{ $pelicula->observaciones }}</textarea>
         </div>

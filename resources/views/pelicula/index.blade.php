@@ -17,6 +17,8 @@
                 <th>Título</th>
                 <th>Cartel</th>
                 <th>3D</th>
+                <th>Duracion</th>
+                <th>Edad min.</th>
                 <th>Rango de fechas</th>
                 <th>Acciones</th>
             </tr>
@@ -33,6 +35,8 @@
                         @endif
                     </td>
                     <td>{{ $pelicula->es_3d ? 'Sí' : 'No' }}</td>
+                    <td>{{ $pelicula->duracion }} minutos</td>
+                    <td>{{ $pelicula->edad_minima }} años</td>
                     <td>
                         {{ $pelicula->fecha_inicio ?? '–' }} <br>
                         {{ $pelicula->fecha_fin ?? '–' }}
@@ -77,11 +81,8 @@
             let fila = $(this).closest('tr'); // Obtener la fila de la tabla
             if (confirm('¿Estás seguro de que quieres eliminar esta incidencia?')) {
                 $.ajax({
-                    url: '/peliculas/' + peliculaId,
-                    type: 'POST', // <--- CAMBIADO
-                    data: {
-                        _method: 'DELETE' // <--- AÑADIDO
-                    },
+                    url:'{{ url("peliculas") }}/' + peliculaId,
+                    type: 'DELETE',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },

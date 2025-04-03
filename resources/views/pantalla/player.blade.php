@@ -34,10 +34,56 @@
 
         .cartel {
             max-width: 100%;
-            max-height: {{ $orientacion === 'vertical' ? '60%' : '70%' }};
+            max-height: {{ $orientacion === 'vertical' ? '60%' : '100%' }};
+            min-height: 90%;
             object-fit: contain;
             margin-bottom: 10px;
         }
+
+        .cartel-wrapper {
+            position: relative;
+            display: inline-block;
+            height: auto;
+        }
+
+        .edad-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #a10000;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 1em;
+            z-index: 1;
+        }
+
+        .threeD-badge {
+            position: absolute;
+            top: 50px;
+            left: 11px;
+            background-color: #a10000;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 1em;
+            z-index: 1;
+        }
+
+           .sala-bloque {
+                background-color: #d26767;
+                padding: 10px;
+                border-radius: 8px;
+                margin-bottom: 10px;
+                text-align: center;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+            }
+            .sala-bloque strong {
+                color: #000000;
+                display: block;
+                margin-bottom: 6px;
+                font-size: 1.1em;
+            }
 
         .titulo {
             font-size: {{ $orientacion === 'vertical' ? '2.5em' : '2em' }};
@@ -46,13 +92,13 @@
         }
 
         .horarios {
-            font-size: 1.3em;
+            font-size: 1.2em;
             margin-bottom: 5px;
             text-align: center;
         }
 
         .badge {
-            background: #555;
+            background: #a10000;
             padding: 4px 10px;
             border-radius: 6px;
             margin: 2px;
@@ -63,9 +109,15 @@
         .observaciones {
             font-size: 1.1em;
             color: #ccc;
-            margin-top: auto;
+/*            margin-top: auto;*/
             text-align: center;
             padding: 5px;
+        }
+
+        .info {
+            font-size: 1em;
+            color: #ffffff;
+            margin-bottom: 8px;
         }
     </style>
 </head>
@@ -73,52 +125,68 @@
     <div class="contenedor">
         @foreach ($peliculas as $pelicula)
             <div class="pelicula">
+                <div class="cartel-wrapper">
+                    @if ($pelicula->edad_minima)
+                    <div class="edad-badge">
+                        +{{ $pelicula->edad_minima }}
+                    </div>
+                    
+                @endif
+                @if ($pelicula->es_3d)
+                        <div class="threeD-badge">3D</div>
+                    @endif
                 <img class="cartel" src="{{ asset($pelicula->cartel_url) }}" alt="{{ $pelicula->titulo }}">
-
+                </div>
                 <h2 class="titulo">{{ $pelicula->titulo }}</h2>
+                
+               @if ($pelicula->duracion)
+                @php
+                    $horas = floor($pelicula->duracion / 60);
+                    $minutos = $pelicula->duracion % 60;
+                @endphp
+                <div class="info">
+                    <span style="color: #e80000;">Duración:</span>
+                    {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
+                </div>
+            @endif
 
-                <div class="horarios">
-                    @foreach ($pelicula->sesiones as $sesion)
+
+                @if ($pelicula->sesiones->isNotEmpty())
+    @php
+        $sesionesPorSala = $pelicula->sesiones->groupBy('pantalla.nombre');
+    @endphp
+
+    <div class="horarios">
+        @foreach ($sesionesPorSala as $sala => $sesiones)
+            <div class="sala-bloque">
+                <strong>SALA: {{ $sala }}</strong>
+                <div>
+                    @foreach ($sesiones as $sesion)
                         <span class="badge">{{ \Carbon\Carbon::parse($sesion->hora)->format('H:i') }}</span>
                     @endforeach
                 </div>
+            </div>
+        @endforeach
+    </div>
+@else
+    <div style="color: #aaa; font-size: 1em;">Horarios no disponibles</div>
+@endif
 
-                @if ($pelicula->es_3d)
-                    <div class="badge">3D</div>
-                @endif
 
                 @if ($pelicula->observaciones)
                     <div class="observaciones">{{ $pelicula->observaciones }}</div>
                 @endif
             </div>
         @endforeach
-
-
     </div>
-    @if ($estrenos->isNotEmpty() && $pantalla->modo === 'general')
-    <div style="width: 100%; padding: 20px; text-align: center;">
-        <h2 style="color: gold; margin-bottom: 15px;">Próximos Estrenos</h2>
-        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
-            @foreach ($estrenos as $pelicula)
-                <div style="margin: 10px; width: 150px; text-align: center;">
-                    <img src="{{ asset($pelicula->cartel_url) }}" style="width: 100%; border-radius: 10px;">
-                    <div style="color: white; font-size: 1em; margin-top: 5px;">
-                        {{ $pelicula->titulo }}
-                    </div>
-                    <div style="color: #aaa; font-size: 0.9em;">
-                        Estreno: {{ \Carbon\Carbon::parse($pelicula->fecha_inicio)->format('d/m/Y') }}
-                    </div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-@endif
+
     <script>
         setInterval(() => {
             location.reload();
-        }, 60000); // Recarga cada 60 segundos
+        }, 60000); // recarga cada 1 minuto
     </script>
 </body>
 </html>
+
 
 

@@ -40,7 +40,9 @@ class PeliculaController extends Controller
             'cartel_url' => 'nullable|url',
             'fecha_inicio' => 'nullable|date',
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
-            'observaciones' => 'nullable|string'
+            'observaciones' => 'nullable|string',
+            'duracion' => 'nullable|integer|min:1|max:500',
+            'edad_minima' => 'nullable|integer',
         ]);
 
         Pelicula::create([
@@ -49,6 +51,8 @@ class PeliculaController extends Controller
             'es_3d' => $request->has('es_3d'),
             'fecha_inicio' => $request->fecha_inicio,
             'fecha_fin' => $request->fecha_fin,
+            'duracion' => $request->duracion,
+            'edad_minima' => $request->edad_minima,
             'observaciones' => $request->observaciones,
         ]);
         return redirect()->route('peliculas.index')->with('success', 'Película creada');    
@@ -90,7 +94,9 @@ class PeliculaController extends Controller
             'cartel_url' => 'nullable|url',
             'fecha_inicio' => 'nullable|date',
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
-            'observaciones' => 'nullable|string'
+            'observaciones' => 'nullable|string',
+            'duracion' => 'nullable|integer|min:1|max:500',
+            'edad_minima' => 'nullable|integer',
         ]);
         $pelicula->update([
             'titulo' => $request->titulo,
@@ -98,6 +104,8 @@ class PeliculaController extends Controller
             'es_3d' => $request->has('es_3d'),
             'fecha_inicio' => $request->fecha_inicio,
             'fecha_fin' => $request->fecha_fin,
+            'duracion' => $request->duracion,
+            'edad_minima' => $request->edad_minima,
             'observaciones' => $request->observaciones,
         ]);
         return redirect()->route('peliculas.index')->with('success', 'Película actualizada');
@@ -112,5 +120,10 @@ class PeliculaController extends Controller
     public function destroy($id){
         
         $pelicula = Pelicula::findOrFail($id);
+        if($pelicula->sesiones()->exists()){
+            return response()->json(['error' => 'No se puede borrar la pelicula porque tiene sesiones asociadas']);
+        }
+        $pelicula->delete();
+        return response()->json(['message' => 'Pelicula eliminada correctamente']);
     }
 }

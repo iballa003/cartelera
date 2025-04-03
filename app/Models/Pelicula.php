@@ -11,7 +11,7 @@ class Pelicula extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['titulo', 'cartel_url','es_3d','fecha_inicio','fecha_fin','observaciones'];
+    protected $fillable = ['titulo', 'cartel_url','es_3d','fecha_inicio','fecha_fin','observaciones', 'duracion', 'edad_minima'];
 
     public function sesiones(){
         return $this->hasMany(Sesion::class);

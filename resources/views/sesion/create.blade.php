@@ -26,7 +26,7 @@
 
         <div class="mb-3">
             <label>Fecha:</label>
-            <input type="date" name="fecha" class="form-control" required>
+            <input type="date" name="fecha" class="form-control" value = "{{ date('Y-m-d') }}" required>
         </div>
 
         <div class="mb-3">

@@ -22,36 +22,29 @@ public function mostrar($id)
 {
     $pantalla = Pantalla::findOrFail($id);
     $hoy = now()->toDateString();
-    $orientacion = $pantalla->orientacion;
-    if ($pantalla->modo === 'general') {
-        // Mostrar todas las películas activas hoy con sus sesiones
-        $peliculas = Pelicula::whereDate('fecha_inicio', '<=', $hoy)
-            ->whereDate('fecha_fin', '>=', $hoy)
-            ->with(['sesiones' => function ($query) use ($hoy) {
-                $query->where('fecha', $hoy)->orderBy('hora');
-            }])
-            ->get();
-    } else {
-        // Mostrar solo las películas asignadas a esta pantalla para hoy
-        $peliculas = Pelicula::whereDate('fecha_inicio', '<=', $hoy)
-            ->whereDate('fecha_fin', '>=', $hoy)
-            ->whereHas('sesiones', function ($query) use ($id, $hoy) {
-                $query->where('pantalla_id', $id)->where('fecha', $hoy);
-            })
-            ->with(['sesiones' => function ($query) use ($id, $hoy) {
-                $query->where('pantalla_id', $id)->where('fecha', $hoy)->orderBy('hora');
-            }])
-            ->get();
-    }
 
-    // Próximos estrenos (opcionales)
-    $estrenos = Pelicula::whereDate('fecha_inicio', '>', $hoy)
-        ->orderBy('fecha_inicio')
-        ->take(5)
-        ->get();
+    $peliculas = Pelicula::whereDate('fecha_inicio', '<=', $hoy)
+        ->whereDate('fecha_fin', '>=', $hoy)
+        ->with(['sesiones' => function ($query) use ($id, $hoy) {
+            $query->where('pantalla_id', $id)
+                  ->where('fecha', $hoy)
+                  ->with('pantalla')
+                  ->orderBy('hora');
+        }])
+        ->get()
+        ->filter(function ($pelicula) {
+            return $pelicula->sesiones->isNotEmpty();
+        });
 
-    return view('pantalla.player', compact('pantalla', 'peliculas', 'estrenos', 'orientacion'));
+    return view('pantalla.player', [
+        'peliculas' => $peliculas,
+        'orientacion' => $pantalla->orientacion,
+        'pantalla' => $pantalla
+    ]);
 }
+
+
+
 
 
     /**
@@ -99,9 +92,9 @@ public function mostrar($id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pantalla $pantalla)
     {
-        //
+        return view('pantalla.edit', compact('pantalla'));
     }
 
     /**
@@ -111,9 +104,19 @@ public function mostrar($id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Pantalla $pantalla)
     {
-        //
+        $request->validate([
+            'nombre' => 'required',
+            'orientacion' => 'required|in:horizontal,vertical',
+            'modo' => 'required|in:1,2,3,general'
+        ]);
+        $pantalla->update([
+            'nombre' => $request->nombre,
+            'orientacion' => $request->orientacion,
+            'modo' => $request->modo,
+        ]);
+        return redirect()->route('pantallas.index')->with('success', 'Pantalla actualizada');
     }
 
     /**
