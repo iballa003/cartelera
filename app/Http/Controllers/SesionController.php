@@ -15,7 +15,8 @@ class SesionController extends Controller
      */
     public function index()
     {
-        //
+        $sesiones = Sesion::all();
+        return view('sesion.index', compact('sesiones'));
     }
 
     /**
@@ -67,9 +68,11 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sesion $sesion)
     {
-        //
+        $peliculas = Pelicula::all();
+        $pantallas = Pantalla::all();
+        return view('sesion.edit', compact('sesion', 'peliculas', 'pantallas'));
     }
 
     /**
@@ -79,9 +82,22 @@ class SesionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sesion $sesion)
     {
-        //
+        $request->validate([
+            'pantalla_id' => 'required|exists:pantallas,id',
+            'pelicula_id' => 'required|exists:peliculas,id',
+            'fecha' => 'required|date',
+            'hora' => 'required'
+        ]);
+        $sesion->update([
+            'pantalla_id' => $request->pantalla_id,
+            'pelicula_id' => $request->pelicula_id,
+            'es_3d' => $request->has('es_3d'),
+            'fecha' => $request->fecha?? now()->format('Y-m-d'),
+            'hora' => $request->hora ?? now()->format('H:i:s'),
+        ]);
+        return redirect()->route('sesiones.index')->with('success', 'Sesión actualizada');
     }
 
     /**

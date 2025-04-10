@@ -10,6 +10,7 @@
             background: black;
             color: white;
             font-family: sans-serif;
+            overflow-y: hidden;
         }
 
         .contenedor {
@@ -30,12 +31,13 @@
             justify-content: flex-start;
             align-items: center;
             overflow: hidden;
+            height: 110%;
         }
 
         .cartel {
             max-width: 100%;
-            max-height: {{ $orientacion === 'vertical' ? '60%' : '100%' }};
-            min-height: 90%;
+            max-height: {{ $orientacion === 'vertical' ? '100%' : '100%' }};
+            min-height: 50%;
             object-fit: contain;
             margin-bottom: 10px;
         }
@@ -43,7 +45,7 @@
         .cartel-wrapper {
             position: relative;
             display: inline-block;
-            height: auto;
+            height: 50%;
         }
 
         .edad-badge {
@@ -111,13 +113,17 @@
             color: #ccc;
 /*            margin-top: auto;*/
             text-align: center;
-            padding: 5px;
+            padding-top: 20px;
         }
 
         .info {
             font-size: 1em;
             color: #ffffff;
             margin-bottom: 8px;
+        }
+        .infoDiv {
+            position: relative;
+            top: 20px;
         }
     </style>
 </head>
@@ -137,53 +143,56 @@
                     @endif
                 <img class="cartel" src="{{ asset($pelicula->cartel_url) }}" alt="{{ $pelicula->titulo }}">
                 </div>
-                <h2 class="titulo">{{ $pelicula->titulo }}</h2>
-                
-               @if ($pelicula->duracion)
-                @php
-                    $horas = floor($pelicula->duracion / 60);
-                    $minutos = $pelicula->duracion % 60;
-                @endphp
-                <div class="info">
-                    <span style="color: #e80000;">Duración:</span>
-                    {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
-                </div>
-            @endif
-
-
-                @if ($pelicula->sesiones->isNotEmpty())
-    @php
-        $sesionesPorSala = $pelicula->sesiones->groupBy('pantalla.nombre');
-    @endphp
-
-    <div class="horarios">
-        @foreach ($sesionesPorSala as $sala => $sesiones)
-            <div class="sala-bloque">
-                <strong>SALA: {{ $sala }}</strong>
-                <div>
-                    @foreach ($sesiones as $sesion)
-                        <span class="badge">{{ \Carbon\Carbon::parse($sesion->hora)->format('H:i') }}</span>
-                    @endforeach
-                </div>
-            </div>
-        @endforeach
-    </div>
-@else
-    <div style="color: #aaa; font-size: 1em;">Horarios no disponibles</div>
-@endif
-
-
-                @if ($pelicula->observaciones)
-                    <div class="observaciones">{{ $pelicula->observaciones }}</div>
+                <div class="infoDiv">
+                    <h2 class="titulo">{{ $pelicula->titulo }}</h2>
+                    
+                   @if ($pelicula->duracion)
+                    @php
+                        $horas = floor($pelicula->duracion / 60);
+                        $minutos = $pelicula->duracion % 60;
+                    @endphp
+                    <div class="info">
+                        <span style="color: #e80000;">Duración:</span>
+                        {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
+                    </div>
                 @endif
+
+
+                    @if ($pelicula->sesiones->isNotEmpty())
+        @php
+            $sesionesPorSala = $pelicula->sesiones->groupBy('pantalla.nombre');
+        @endphp
+
+        <div class="horarios">
+            @foreach ($sesionesPorSala as $sala => $sesiones)
+                <div class="sala-bloque">
+                    <strong>SALA: {{ $sala }}</strong>
+                    <div>
+                        @foreach ($sesiones as $sesion)
+                            <span class="badge">{{ \Carbon\Carbon::parse($sesion->hora)->format('H:i') }}</span>
+                        @endforeach
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    @else
+        <div style="color: #aaa; font-size: 1em;">Horarios no disponibles</div>
+    @endif
+</div>
+
+                <!-- @if ($pelicula->observaciones)
+                    <div class="observaciones">{{ $pelicula->observaciones }}</div>
+                @else
+                    <div class="observaciones">Ninguna observación</div>
+                @endif -->
             </div>
         @endforeach
     </div>
 
     <script>
-        setInterval(() => {
-            location.reload();
-        }, 60000); // recarga cada 1 minuto
+        // setInterval(() => {
+        //     location.reload();
+        // }, 60000); // recarga cada 1 minuto
     </script>
 </body>
 </html>

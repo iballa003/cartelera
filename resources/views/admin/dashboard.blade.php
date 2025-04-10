@@ -6,6 +6,7 @@
     <ul>
         <li><a href="{{ route('pantallas.index') }}">Pantallas</a></li>
         <li><a href="{{ route('peliculas.index') }}">Películas</a></li>
+        <li><a href="{{ route('sesiones.index') }}">Sesiones</a></li>
         <li><a href="{{ route('sesiones.create') }}">Asignar Sesión</a></li>
     </ul>
 </div>

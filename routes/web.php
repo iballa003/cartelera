@@ -27,14 +27,15 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/pantalla/{id}',[PantallaController::class, 'mostrar']);
-
+Route::get('/estrenos',[PantallaController::class, 'estrenos']);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('pantallas', PantallaController::class);
     Route::resource('peliculas', PeliculaController::class);
-    Route::resource('sesiones', SesionController::class)->only(['create', 'store']);
+    //Route::resource('sesiones', SesionController::class)->only(['create', 'store']);
+    Route::resource('sesiones', SesionController::class)->parameters(['sesiones' => 'sesion']);
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 });
 

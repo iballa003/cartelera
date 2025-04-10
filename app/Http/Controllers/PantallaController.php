@@ -35,6 +35,17 @@ public function mostrar($id)
         ->filter(function ($pelicula) {
             return $pelicula->sesiones->isNotEmpty();
         });
+        if(in_array($pantalla->modo, ['1','2','3'])){
+            $peliculas = $peliculas->take((int) $pantalla->modo);
+        }
+
+    if ($pantalla->orientacion === 'horizontal' && $pantalla->modo === '1') {
+        return view('pantalla.player_horizontal_uno', [
+        'peliculas' => $peliculas,
+        'orientacion' => $pantalla->orientacion,
+        'pantalla' => $pantalla
+    ]);
+    }
 
     return view('pantalla.player', [
         'peliculas' => $peliculas,
@@ -44,7 +55,16 @@ public function mostrar($id)
 }
 
 
+public function estrenos()
+{
+    $hoy = now()->toDateString();
 
+    $estrenos = Pelicula::whereDate('fecha_inicio', '>', $hoy)
+    ->orderBy('fecha_inicio')
+    ->get();
+
+    return view('pantalla.estrenos', compact('estrenos'));
+}
 
 
     /**
