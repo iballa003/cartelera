@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
-    <h3>Editar pantalla</h3>
+    <h3>Editar Sesión</h3>
 
     <form action="{{ route('sesiones.update', $sesion) }}" method="POST">
         @csrf
@@ -34,6 +34,11 @@
         <div class="mb-3">
             <label class="form-label">Hora</label>
             <input type="text" name="hora" class="form-control" value="{{ $sesion->hora }}">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Sala</label>
+            <input type="text" name="sala" class="form-control" value="{{ $sesion->sala }}">
         </div>
 
         <div class="d-flex gap-2">

@@ -9,7 +9,7 @@ class Sesion extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['pantalla_id', 'pelicula_id','fecha', 'hora'];
+    protected $fillable = ['pantalla_id', 'pelicula_id','fecha', 'hora', 'sala'];
 
     public function pantalla(){
         return $this->belongsTo(Pantalla::class);

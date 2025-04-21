@@ -111,7 +111,7 @@
 <body>
 
     @php $pelicula = $peliculas->first(); @endphp
-
+    @if ($pelicula)
     <div class="imagen">
         <div class="cartel-wrapper">
             @if ($pelicula->edad_minima)
@@ -161,7 +161,11 @@
             <div class="observaciones">Ninguna observación</div>
         @endif
     </div>
-
+    @else
+    <div style="text-align: center; width: 100%; padding: 50px;">
+        <h2 style="color: #e80000; ">Ninguna película</h2>
+    </div>
+    @endif
     <script>
         setInterval(() => {
             location.reload();

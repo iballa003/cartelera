@@ -30,6 +30,11 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Sala</label>
+            <input type="text" name="sala" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
             <label>Hora:</label>
             <input type="time" name="hora" class="form-control" required>
         </div>

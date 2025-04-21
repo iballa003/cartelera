@@ -16,6 +16,7 @@
             <tr>
                 <th>Película</th>
                 <th>Pantalla</th>
+                <th>Sala</th>
                 <th>Fecha</th>
                 <th>Hora</th>
                 <th>Acciones</th>
@@ -25,7 +26,10 @@
             @foreach ($sesiones as $sesion)
                 <tr>
                     <td>{{ $sesion->pelicula->titulo }} [sesión: {{Carbon\Carbon::parse($sesion->hora)->format('H:i')}}]</td>
-                    <td>{{ $sesion->pantalla->nombre }}</td>
+                    <td><a href="{{ url('/pantalla/' . $sesion->pantalla->id) }}" target="_blank">
+                            /pantalla/{{ $sesion->pantalla->id }}
+                        </a></td>
+                    <td>{{ $sesion->sala }}</td>
                     <td>{{ $sesion->fecha }}</td>
                     <td>{{ $sesion->hora }}</td>
                     <td>

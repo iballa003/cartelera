@@ -147,6 +147,11 @@ public function estrenos()
      */
     public function destroy($id)
     {
-        // 
+        $pantalla = Pantalla::findOrFail($id);
+        if($pantalla->sesiones()->exists()){
+            return response()->json(['error' => 'No se puede borrar la pantalla porque tiene sesiones asociadas']);
+        }
+        $pantalla->delete();
+        return response()->json(['message' => 'Pantalla eliminada correctamente']);
     }
 }

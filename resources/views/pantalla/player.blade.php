@@ -160,7 +160,7 @@
 
                     @if ($pelicula->sesiones->isNotEmpty())
         @php
-            $sesionesPorSala = $pelicula->sesiones->groupBy('pantalla.nombre');
+            $sesionesPorSala = $pelicula->sesiones->groupBy('sala');
         @endphp
 
         <div class="horarios">
@@ -180,11 +180,11 @@
     @endif
 </div>
 
-                <!-- @if ($pelicula->observaciones)
+                 @if ($pelicula->observaciones)
                     <div class="observaciones">{{ $pelicula->observaciones }}</div>
                 @else
                     <div class="observaciones">Ninguna observación</div>
-                @endif -->
+                @endif
             </div>
         @endforeach
     </div>

@@ -65,6 +65,30 @@
                 }
             }
         });
+
+        // Evento click en el botón Eliminar
+        $(document).on('click', '.btnEliminar', function() {
+            let pantallaId = $(this).data('id'); // Obtener el ID de la incidencia
+            let fila = $(this).closest('tr'); // Obtener la fila de la tabla
+            if (confirm('¿Estás seguro de que quieres eliminar esta pantalla?')) {
+                $.ajax({
+                    url:'{{ url("pantallas") }}/' + pantallaId,
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        toastr.success(response.message);
+                        fila.remove();
+                    },
+                    error: function(xhr) {
+                        console.error('ERROR: ', xhr.status, xhr.responseText)
+                        toastr.error('Error al eliminar la pantalla.');
+                    }
+            });
+
+            }
+        });
     });
 
     

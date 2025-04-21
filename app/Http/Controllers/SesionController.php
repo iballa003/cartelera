@@ -43,6 +43,7 @@ class SesionController extends Controller
         $request->validate([
             'pantalla_id' => 'required|exists:pantallas,id',
             'pelicula_id' => 'required|exists:peliculas,id',
+            'sala' => 'required',
             'fecha' => 'required|date',
             'hora' => 'required'
         ]);
@@ -87,6 +88,7 @@ class SesionController extends Controller
         $request->validate([
             'pantalla_id' => 'required|exists:pantallas,id',
             'pelicula_id' => 'required|exists:peliculas,id',
+            'sala' => 'required',
             'fecha' => 'required|date',
             'hora' => 'required'
         ]);
@@ -94,6 +96,7 @@ class SesionController extends Controller
             'pantalla_id' => $request->pantalla_id,
             'pelicula_id' => $request->pelicula_id,
             'es_3d' => $request->has('es_3d'),
+            'sala' => $request->sala,
             'fecha' => $request->fecha?? now()->format('Y-m-d'),
             'hora' => $request->hora ?? now()->format('H:i:s'),
         ]);
@@ -108,6 +111,8 @@ class SesionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sesion = Sesion::findOrFail($id);
+        $sesion->delete();
+        return response()->json(['message' => 'Sesion eliminada correctamente']);
     }
 }
