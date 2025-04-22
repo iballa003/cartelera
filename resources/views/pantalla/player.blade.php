@@ -20,6 +20,7 @@
             justify-content: center;
             align-items: stretch;
             height: 100vh;
+
         }
 
         .pelicula {
@@ -32,20 +33,30 @@
             align-items: center;
             overflow: hidden;
             height: 110%;
+
+
         }
 
         .cartel {
+            
+            width: auto;
             max-width: 100%;
             max-height: {{ $orientacion === 'vertical' ? '100%' : '100%' }};
+            max-height: 100%;
             min-height: 50%;
             object-fit: contain;
             margin-bottom: 10px;
         }
 
         .cartel-wrapper {
+            width: auto;
             position: relative;
             display: inline-block;
-            height: 50%;
+            height: auto;
+            max-height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .edad-badge {
@@ -56,7 +67,7 @@
             color: white;
             padding: 5px 10px;
             border-radius: 6px;
-            font-size: 1em;
+            font-size: 1.4em;
             z-index: 1;
         }
 
@@ -68,7 +79,7 @@
             color: white;
             padding: 5px 10px;
             border-radius: 6px;
-            font-size: 1em;
+            font-size: 1.4em;
             z-index: 1;
         }
 
@@ -84,7 +95,7 @@
                 color: #000000;
                 display: block;
                 margin-bottom: 6px;
-                font-size: 1.1em;
+                font-size: 30px;
             }
 
         .titulo {
@@ -109,17 +120,24 @@
         }
 
         .observaciones {
-            font-size: 1.1em;
+            font-size: 1.4em;
             color: #ccc;
 /*            margin-top: auto;*/
             text-align: center;
             padding-top: 20px;
         }
 
+        .observaciones-wrapper {
+            width: 40%;
+        }
+
         .info {
             font-size: 1em;
             color: #ffffff;
             margin-bottom: 8px;
+        }
+        .duracion {
+          font-size: 1.4em;
         }
         .infoDiv {
             position: relative;
@@ -152,8 +170,10 @@
                         $minutos = $pelicula->duracion % 60;
                     @endphp
                     <div class="info">
-                        <span style="color: #e80000;">Duración:</span>
-                        {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
+                        <div class="duracion">
+                            <span style="color: #e80000;">Duración:</span>
+                            {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
+                        </div>
                     </div>
                 @endif
 
@@ -179,12 +199,13 @@
         <div style="color: #aaa; font-size: 1em;">Horarios no disponibles</div>
     @endif
 </div>
-
+            <div class="observaciones-wrapper">
                  @if ($pelicula->observaciones)
                     <div class="observaciones">{{ $pelicula->observaciones }}</div>
                 @else
                     <div class="observaciones">Ninguna observación</div>
                 @endif
+            </div>
             </div>
         @endforeach
     </div>

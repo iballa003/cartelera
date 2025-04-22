@@ -42,7 +42,7 @@
             color: white;
             padding: 5px 10px;
             border-radius: 6px;
-            font-size: 1em;
+            font-size: 1.4em;
             z-index: 1;
         }
 
@@ -62,13 +62,13 @@
             padding: 30px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+/*            justify-content: center;*/
             overflow-y: auto;
         }
 
         .titulo {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 4.5em;
+            margin-bottom: 90px;
         }
 
         span.badge {
@@ -76,7 +76,7 @@
             color: white;
             padding: 5px 10px;
             border-radius: 6px;
-            font-size: 1em;
+            font-size: 1.4em;
             display: inline-block;
             margin-bottom: 10px;
             margin-right: 8px;
@@ -98,13 +98,17 @@
             color: #000;
             display: block;
             margin-bottom: 6px;
-            font-size: 25px;
+            font-size: 40px;
         }
 
         .observaciones {
             color: #ccc;
-            font-size: 1.1em;
+            font-size: 1.7em;
             margin-top: 20px;
+        }
+        
+        .duracion {
+            font-size: 1.4em;
         }
     </style>
 </head>
@@ -135,7 +139,9 @@
                 $minutos = $pelicula->duracion % 60;
             @endphp
             <div class="badge">
-                <span style="color: #e80000;">Duración:</span> {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
+                <div class="duracion">
+                    <span style="color: #e80000;">Duración:</span> {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
+                </div>
             </div>
         @endif
 
@@ -154,12 +160,12 @@
         @else
             <div style="color: #aaa;">Horarios no disponibles</div>
         @endif
-
-        @if ($pelicula->observaciones)
-            <div class="observaciones">{{ $pelicula->observaciones }}</div>
-        @else
-            <div class="observaciones">Ninguna observación</div>
-        @endif
+        
+            @if ($pelicula->observaciones)
+                <div class="observaciones">{{ $pelicula->observaciones }}</div>
+            @else
+                <div class="observaciones">Ninguna observación</div>
+            @endif
     </div>
     @else
     <div style="text-align: center; width: 100%; padding: 50px;">

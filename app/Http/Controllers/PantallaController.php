@@ -47,11 +47,21 @@ public function mostrar($id)
     ]);
     }
 
-    return view('pantalla.player', [
+    if ($pantalla->orientacion === 'horizontal') {
+        return view('pantalla.player', [
         'peliculas' => $peliculas,
         'orientacion' => $pantalla->orientacion,
         'pantalla' => $pantalla
     ]);
+    }
+
+    if ($pantalla->orientacion === 'vertical') {
+        return view('pantalla.player_vertical', [
+        'peliculas' => $peliculas,
+        'orientacion' => $pantalla->orientacion,
+        'pantalla' => $pantalla
+    ]);
+    }
 }
 
 
