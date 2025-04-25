@@ -99,7 +99,7 @@
         .titulo {
             font-size: {{ $orientacion === 'vertical' ? '2.5em' : '2em' }};
             margin: 0 0 5px 0;
-            text-align: center;
+            text-align: left;
         }
 
         .horarios {

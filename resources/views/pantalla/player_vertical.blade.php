@@ -40,9 +40,9 @@
 
         .cartel-wrapper img {
             height: 100%;
-            width: auto;
+            width: 500px;
             max-width: 100%;
-            object-fit: contain;
+            object-fit: fill;
             border-radius: 10px;
         }
 
@@ -68,7 +68,7 @@
         .duracion {
             margin-top: 10px;
             font-size: 1.4em;
-            color: #e80000;
+            
         }
 
         .horarios {
@@ -140,7 +140,7 @@
                     $minutos = $pelicula->duracion % 60;
                 @endphp
                 <div class="duracion">
-                    Duración: {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
+                    <span style="color: #e80000;">Duración:</span> {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
                 </div>
             @endif
 
