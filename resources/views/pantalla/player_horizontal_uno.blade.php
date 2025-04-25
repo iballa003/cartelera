@@ -67,7 +67,7 @@
         }
 
         .titulo {
-            font-size: 4.5em;
+            font-size: 5.5em;
             margin-bottom: 90px;
         }
 

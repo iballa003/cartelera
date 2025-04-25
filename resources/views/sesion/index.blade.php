@@ -44,6 +44,7 @@
 <script>
     $(document).ready(function () {
         $('#tablaPelículas').DataTable({
+            'order': [[ 3, 'desc' ]],
             language: {
                 "decimal": "",
                 "emptyTable": "No hay información",

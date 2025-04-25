@@ -57,7 +57,7 @@
         }
 
         .edad-badge { top: 10px; left: 10px; }
-        .threeD-badge { top: 60px; left: 10px; background-color: #0055ff; }
+        .threeD-badge { top: 60px; left: 10px; background-color: #a10000; }
 
         .titulo {
             font-size: 2em;
@@ -109,6 +109,10 @@
             padding: 10px;
             max-width: 90%;
         }
+
+        .observaciones-wrapper {
+            width: 35%;
+        }
     </style>
 </head>
 <body>
@@ -157,13 +161,13 @@
             @else
                 <div style="color: #aaa;">Horarios no disponibles</div>
             @endif
-
-            @if ($pelicula->observaciones)
-                <div class="observaciones">{{ $pelicula->observaciones }}</div>
-            @else
-                <div class="observaciones">Ninguna observación</div>
-            @endif
-
+            <div class="observaciones-wrapper">
+                @if ($pelicula->observaciones)
+                    <div class="observaciones">{{ $pelicula->observaciones }}</div>
+                @else
+                    <div class="observaciones">Ninguna observación</div>
+                @endif
+            </div>
         </div>
     @endforeach
 

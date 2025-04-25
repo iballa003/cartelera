@@ -39,12 +39,10 @@
 
         .cartel {
             
-            width: auto;
+            width: 690px;
             max-width: 100%;
-            max-height: {{ $orientacion === 'vertical' ? '100%' : '100%' }};
-            max-height: 100%;
-            min-height: 50%;
-            object-fit: contain;
+            height: 590px;
+            object-fit: fill;
             margin-bottom: 10px;
         }
 
@@ -128,7 +126,7 @@
         }
 
         .observaciones-wrapper {
-            width: 40%;
+            width: 50%;
         }
 
         .info {
@@ -217,6 +215,4 @@
     </script>
 </body>
 </html>
-
-
 
