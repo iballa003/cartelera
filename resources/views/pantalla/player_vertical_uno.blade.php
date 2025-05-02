@@ -111,7 +111,7 @@
         }
 
         .observaciones-wrapper {
-            width: 30%;
+            width: 25%;
         }
     </style>
 </head>

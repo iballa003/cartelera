@@ -83,7 +83,7 @@
 
            .sala-bloque {
                 background-color: #d26767;
-                padding: 10px;
+                padding: 2px;
                 border-radius: 8px;
                 margin-bottom: 10px;
                 text-align: center;

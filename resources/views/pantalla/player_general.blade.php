@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Próximos Estrenos</title>
+	<title>Pantalla general</title>
 	<style>
     	body {
         	background-color: #000;
@@ -20,11 +20,13 @@
     	}
 
     	.estrenos-grid {
-        	display: flex;
-        	flex-wrap: wrap;
-        	justify-content: center;
-        	gap: 20px;
-    	}
+		  display: flex;
+		  flex-wrap: wrap;
+		  justify-content: start;
+		  gap: 10px;
+		  width: 80%;
+		  margin: auto;
+		}
 
     	.estreno {
         	background-color: #111;
@@ -52,6 +54,11 @@
         	font-size: 0.9em;
     	}
 
+    	.horarios {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
     	.badge {
         	position: absolute;
         	top: 10px;
@@ -63,6 +70,16 @@
         	font-size: 0.9em;
     	}
 
+    	.badge_horarios {
+            background: #a10000;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin: 2px;
+            font-size: 0.9em;
+            display: inline-block;
+            color: white;
+        }
+
     	.badge-3d {
         	position: absolute;
         	top: 68px;
@@ -73,16 +90,24 @@
         	border-radius: 5px;
         	font-size: 0.9em;
     	}
+    	.sala-bloque {
+            background-color: #d26767;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: center;
+            color: black;
+        }
 	</style>
 </head>
 <body>
-	<h1>Próximos Estrenos</h1>
+	<h1>Pantalla general</h1>
 
-	@if ($estrenos->isEmpty())
-    	<p style="text-align: center; color: #888;">No hay estrenos programados.</p>
+	@if ($peliculas->isEmpty())
+    	<p style="text-align: center; color: #888;">No hay películas.</p>
 	@else
     	<div class="estrenos-grid">
-        	@foreach ($estrenos as $pelicula)
+        	@foreach ($peliculas as $pelicula)
             	<div class="estreno">
                 	@if ($pelicula->edad_minima)
                     	<img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 50px; width: 50px;">
@@ -95,9 +120,21 @@
                 	<img src="{{ asset($pelicula->cartel_url) }}" alt="{{ $pelicula->titulo }}">
 
                 	<div class="titulo">{{ $pelicula->titulo }}</div>
-                	<div class="fecha">
-                    	Estreno: {{ \Carbon\Carbon::parse($pelicula->fecha_inicio)->format('d/m/Y') }}
-                	</div>
+                	@if ($pelicula->sesiones->isNotEmpty())
+                        @php $sesionesPorSala = $pelicula->sesiones->groupBy('sala'); @endphp
+                        <div class="horarios">
+                            @foreach ($sesionesPorSala as $sala => $sesiones)
+                                <div class="sala-bloque">
+                                    <strong>SALA: {{ $sala }}</strong><br>
+                                    @foreach ($sesiones as $sesion)
+                                        <span class="badge_horarios">{{ \Carbon\Carbon::parse($sesion->hora)->format('H:i') }}</span>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+                	
+
             	</div>
         	@endforeach
     	</div>

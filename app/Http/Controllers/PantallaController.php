@@ -23,6 +23,20 @@ public function mostrar($id)
     $pantalla = Pantalla::findOrFail($id);
     $hoy = now()->toDateString();
 
+    if($pantalla->modo === 'general'){
+        $peliculas = Pelicula::whereDate('fecha_inicio', '<=', $hoy)
+        ->whereDate('fecha_fin', '>=', $hoy)
+        ->with(['sesiones' => function ($query) use ($hoy){
+            $query->where('fecha', $hoy)
+                  ->with('pantalla')
+                  ->orderBy('hora');
+        }])->get();
+        return view('pantalla.player_general', [
+        'peliculas' => $peliculas,
+        'orientacion' => $pantalla->orientacion,
+        'pantalla' => $pantalla
+    ]);
+    } else{
     $peliculas = Pelicula::whereDate('fecha_inicio', '<=', $hoy)
         ->whereDate('fecha_fin', '>=', $hoy)
         ->with(['sesiones' => function ($query) use ($id, $hoy) {
@@ -69,6 +83,7 @@ public function mostrar($id)
         'orientacion' => $pantalla->orientacion,
         'pantalla' => $pantalla
     ]);
+    }
     }
 }
 

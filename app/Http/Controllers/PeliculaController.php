@@ -42,7 +42,7 @@ class PeliculaController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'observaciones' => 'nullable|string',
             'duracion' => 'nullable|integer|min:1|max:500',
-            'edad_minima' => 'nullable|integer',
+            'edad_minima' => 'nullable|string',
         ]);
 
         Pelicula::create([
@@ -96,7 +96,7 @@ class PeliculaController extends Controller
             'fecha_fin' => 'nullable|date|after_or_equal:fecha_inicio',
             'observaciones' => 'nullable|string',
             'duracion' => 'nullable|integer|min:1|max:500',
-            'edad_minima' => 'nullable|integer',
+            'edad_minima' => 'nullable|string',
         ]);
         $pelicula->update([
             'titulo' => $request->titulo,
