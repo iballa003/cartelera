@@ -41,7 +41,16 @@
 
         <div class="mb-3">
             <label class="form-label">Edad mínima</label>
-            <input type="number" name="edad_minima" class="form-control" value="{{ $pelicula->edad_minima }}" required>
+                <select class="form-control form-control-sm" name="edad_minima" required>
+                    <option value="todas" {{ $pelicula->edad_minima == 'todas'? 'selected' : ''}}>Para todos los públicos</option>
+                    <option value="7" {{ $pelicula->edad_minima == '7'? 'selected' : ''}}>No recomendada para menores de 7 años</option>
+                    <option value="todas-recomendadas" {{ $pelicula->edad_minima == 'todas-recomendadas'? 'selected' : ''}}>Para todos los públicos(recomendada para la infancia) </option>
+                    <option value="7-recomendada" {{ $pelicula->edad_minima == '7-recomendada'? 'selected' : ''}}>No recomendada para menores de 7 años(recomendada para la infancia)</option>
+                    <option value="12" {{ $pelicula->edad_minima == '12'? 'selected' : ''}}>No recomendada para menores de 12 años</option>
+                    <option value="16" {{ $pelicula->edad_minima == '16'? 'selected' : ''}}>No recomendada para menores de 16 años</option>
+                    <option value="18" {{ $pelicula->edad_minima == '18'? 'selected' : ''}}>No recomendada para menores de 18 años</option>
+                    <option value="x" {{ $pelicula->edad_minima == 'x'? 'selected' : ''}}>Película x</option>
+                </select>
         </div>
 
         <div class="mb-3">

@@ -55,6 +55,14 @@ public function mostrar($id)
     ]);
     }
 
+    if ($pantalla->orientacion === 'vertical' && $pantalla->modo === '1') {
+        return view('pantalla.player_vertical_uno', [
+        'peliculas' => $peliculas,
+        'orientacion' => $pantalla->orientacion,
+        'pantalla' => $pantalla
+    ]);
+    }
+
     if ($pantalla->orientacion === 'vertical') {
         return view('pantalla.player_vertical', [
         'peliculas' => $peliculas,

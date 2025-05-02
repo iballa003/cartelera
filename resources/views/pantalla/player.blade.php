@@ -71,7 +71,7 @@
 
         .threeD-badge {
             position: absolute;
-            top: 50px;
+            top: 70px;
             left: 11px;
             background-color: #a10000;
             color: white;
@@ -97,7 +97,7 @@
             }
 
         .titulo {
-            font-size: {{ $orientacion === 'vertical' ? '2.5em' : '2em' }};
+            font-size: 2.5em;
             margin: 0 0 5px 0;
             text-align: left;
         }
@@ -113,7 +113,7 @@
             padding: 4px 10px;
             border-radius: 6px;
             margin: 2px;
-            font-size: 1em;
+            font-size: 1.2em;
             display: inline-block;
         }
 
@@ -149,9 +149,10 @@
             <div class="pelicula">
                 <div class="cartel-wrapper">
                     @if ($pelicula->edad_minima)
-                    <div class="edad-badge">
+                    <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 50px;">
+                    <!-- <div class="edad-badge">
                         +{{ $pelicula->edad_minima }}
-                    </div>
+                    </div> -->
                     
                 @endif
                 @if ($pelicula->es_3d)

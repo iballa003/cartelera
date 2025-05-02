@@ -52,7 +52,7 @@
         }
 
         .threeD-badge {
-            top: 50px;
+            top: 70px;
             left: 10px;
             background-color: #a10000;
         }
@@ -119,7 +119,7 @@
     <div class="imagen">
         <div class="cartel-wrapper">
             @if ($pelicula->edad_minima)
-                <div class="edad-badge">+{{ $pelicula->edad_minima }}</div>
+                <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 50px;">
             @endif
 
             @if ($pelicula->es_3d)

@@ -33,6 +33,25 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Duración</label>
+            <input type="number" name="duracion" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Edad mínima</label>
+                <select class="form-control form-control-sm" name="edad_minima" required>
+                    <option value="todas">Para todos los públicos</option>
+                    <option value="7">No recomendada para menores de 7 años</option>
+                    <option value="todas-recomendadas">Para todos los públicos(recomendada para la infancia)</option>
+                    <option value="7-recomendada">No recomendada para menores de 7 años(recomendada para la infancia)</option>
+                    <option value="12">No recomendada para menores de 12 años</option>
+                    <option value="16">No recomendada para menores de 16 años</option>
+                    <option value="18">No recomendada para menores de 18 años</option>
+                    <option value="x">Película x</option>
+                </select>
+        </div>
+
+        <div class="mb-3">
             <label for="observaciones" class="form-label">Observaciones</label>
             <textarea name="observaciones" class="form-control" rows="3"></textarea>
         </div>
