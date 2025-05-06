@@ -26,23 +26,25 @@
             justify-content: flex-start;
             align-items: center;
             overflow: hidden;
-            width: 100%;
+            width: 90%;
+            height: 100%;
+            
         }
 
         .cartel-wrapper {
             position: relative;
             width: auto;
-            max-width: 90%;
-            height: auto;
-            max-height: 60vh;
+            max-width: 100%;
             display: inline-block;
+            height: 100%;
+            min-height: 50%;
+            max-height: 100%;
         }
 
         .cartel-wrapper img {
             height: 100%;
-            width: 500px;
             max-width: 100%;
-            object-fit: fill;
+            object-fit: contain;
             border-radius: 10px;
         }
 
@@ -57,7 +59,7 @@
         }
 
         .edad-badge { top: 10px; left: 10px; }
-        .threeD-badge { top: 70px; left: 10px; background-color: #a10000; }
+        .threeD-badge { top: 100px; left: 10px; background-color: #a10000; width: 10%; text-align: center;}
 
         .titulo {
             font-size: 2.5em;
@@ -104,14 +106,14 @@
         .observaciones {
             color: #ccc;
             font-size: 1.2em;
-            margin-top: 20px;
+            margin-top: 10px;
             text-align: center;
             padding: 10px;
             max-width: 90%;
         }
 
         .observaciones-wrapper {
-            width: 25%;
+            width: 40%;
         }
     </style>
 </head>
@@ -122,7 +124,7 @@
 
             <div class="cartel-wrapper">
                 @if ($pelicula->edad_minima)
-                    <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 50px; width: 50px;">
+                    <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 10%; width: 10%;">
                 @endif
 
                 @if ($pelicula->es_3d)
@@ -140,7 +142,23 @@
                     $minutos = $pelicula->duracion % 60;
                 @endphp
                 <div class="duracion">
-                    <span style="color: #e80000;">Duración:</span> {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
+                    <span style="color: #e80000;">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                          <path d="M12 7v5" />
+                          <path d="M12 12l2 -3" />
+                        </svg>
+                    </span> {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
                 </div>
             @endif
 
@@ -172,9 +190,9 @@
     @endforeach
 
     <script>
-        setInterval(() => {
-            location.reload();
-        }, 60000);
+        // setInterval(() => {
+        //     location.reload();
+        // }, 60000);
     </script>
 </body>
 </html>
