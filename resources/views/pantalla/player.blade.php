@@ -68,30 +68,30 @@
 
         .threeD-badge {
             position: absolute;
-            top: 70px;
+            top: 160px;
             left: 11px;
             background-color: #a10000;
             color: white;
             padding: 5px 10px;
             border-radius: 6px;
-            font-size: 1.4em;
+            font-size: 40px;
             z-index: 1;
         }
 
-           .sala-bloque {
-                background-color: #d26767;
-                padding: 2px;
-                border-radius: 8px;
-                margin-bottom: 10px;
-                text-align: center;
-                box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
-            }
-            .sala-bloque strong {
-                color: #000000;
-                display: block;
-                margin-bottom: 6px;
-                font-size: 30px;
-            }
+        .sala-bloque {
+            background-color: #d26767;
+            padding: 2px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: center;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+        }
+        .sala-bloque strong {
+            color: #000000;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 30px;
+        }
 
         .titulo {
             font-size: 2.5em;
@@ -146,7 +146,7 @@
             <div class="pelicula">
                 <div class="cartel-wrapper">
                     @if ($pelicula->edad_minima)
-                    <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 50px;">
+                    <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 140px; width: 20%;">
                     <!-- <div class="edad-badge">
                         +{{ $pelicula->edad_minima }}
                     </div> -->
