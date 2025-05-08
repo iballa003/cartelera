@@ -67,7 +67,7 @@
         }
 
         .titulo {
-            font-size: 5.5em;
+            font-size: {{$peliculas->first()->observaciones ? '5.5em' : '6.5em'}};
             margin-bottom: 90px;
         }
 
@@ -108,7 +108,7 @@
         }
         
         .duracion {
-            font-size: 1.4em;
+            font-size: 1.9em;
         }
     </style>
 </head>
@@ -178,9 +178,7 @@
         @endif
         
             @if ($pelicula->observaciones)
-                <div class="observaciones">{{ $pelicula->observaciones }}</div>
-            @else
-                <div class="observaciones">Ninguna observación</div>
+                <!-- <div class="observaciones">{{ $pelicula->observaciones }}</div> -->
             @endif
     </div>
     @else

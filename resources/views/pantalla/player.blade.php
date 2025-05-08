@@ -32,16 +32,13 @@
             justify-content: flex-start;
             align-items: center;
             overflow: hidden;
-            height: 110%;
-
-
+            height: 120%;
         }
 
-        .cartel {
-            
-            width: 690px;
+        .cartel {          
+            width: 620px;
             max-width: 100%;
-            height: 590px;
+            height: 690px;
             object-fit: fill;
             margin-bottom: 10px;
         }
@@ -103,7 +100,7 @@
         }
 
         .horarios {
-            font-size: 1.2em;
+            font-size: 1.6em;
             margin-bottom: 5px;
             text-align: center;
         }
@@ -118,11 +115,11 @@
         }
 
         .observaciones {
-            font-size: 1.4em;
+            font-size: 1.8em;
             color: #ccc;
 /*            margin-top: auto;*/
             text-align: center;
-            padding-top: 20px;
+            padding-top: 60px;
         }
 
         .observaciones-wrapper {
@@ -135,11 +132,11 @@
             margin-bottom: 8px;
         }
         .duracion {
-          font-size: 1.4em;
+          font-size: 1.8em;
         }
         .infoDiv {
             position: relative;
-            top: 20px;
+            top: 60px;
         }
     </style>
 </head>
@@ -158,9 +155,9 @@
                 @if ($pelicula->es_3d)
                         <div class="threeD-badge">3D</div>
                     @endif
-                <img class="cartel" src="{{ asset($pelicula->cartel_url) }}" alt="{{ $pelicula->titulo }}">
+                <img class="cartel" style="height: {{$pelicula->observaciones ? '690px' : '790px'}}" src="{{ asset($pelicula->cartel_url) }}" alt="{{ $pelicula->titulo }}">
                 </div>
-                <div class="infoDiv">
+                <div class="infoDiv" style="top: {{$pelicula->observaciones ? '60px' : '90px'}}">
                     <h2 class="titulo">{{ $pelicula->titulo }}</h2>
                     
                    @if ($pelicula->duracion)
@@ -170,7 +167,23 @@
                     @endphp
                     <div class="info">
                         <div class="duracion">
-                            <span style="color: #e80000;">Duración:</span>
+                            <span style="color: #e80000;">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+                                  <path d="M12 7v5" />
+                                  <path d="M12 12l2 -3" />
+                                </svg>
+                            </span>
                             {{ $horas > 0 ? $horas . 'h ' : '' }}{{ $minutos > 0 ? $minutos . 'min' : '' }}
                         </div>
                     </div>
@@ -201,8 +214,6 @@
             <div class="observaciones-wrapper">
                  @if ($pelicula->observaciones)
                     <div class="observaciones">{{ $pelicula->observaciones }}</div>
-                @else
-                    <div class="observaciones">Ninguna observación</div>
                 @endif
             </div>
             </div>

@@ -59,7 +59,7 @@
         }
 
         .edad-badge { top: 10px; left: 10px; }
-        .threeD-badge { top: 100px; left: 10px; background-color: #a10000; width: 10%; text-align: center;}
+        .threeD-badge { top: 240px; left: 10px; background-color: #a10000; width: 12%; text-align: center; font-size: 40px;}
 
         .titulo {
             font-size: 2.5em;
@@ -82,7 +82,6 @@
             background-color: #d26767;
             padding: 10px;
             border-radius: 8px;
-            margin: 10px 0;
             text-align: center;
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
         }
@@ -106,7 +105,7 @@
         .observaciones {
             color: #ccc;
             font-size: 1.2em;
-            margin-top: 10px;
+            margin-top: 5px;
             text-align: center;
             padding: 10px;
             max-width: 90%;
@@ -114,6 +113,7 @@
 
         .observaciones-wrapper {
             width: 40%;
+            padding: 20px;
         }
     </style>
 </head>
@@ -124,7 +124,7 @@
 
             <div class="cartel-wrapper">
                 @if ($pelicula->edad_minima)
-                    <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 10%; width: 10%;">
+                    <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 20%; width: 20%;">
                 @endif
 
                 @if ($pelicula->es_3d)
@@ -182,8 +182,6 @@
             <div class="observaciones-wrapper">
                 @if ($pelicula->observaciones)
                     <div class="observaciones">{{ $pelicula->observaciones }}</div>
-                @else
-                    <div class="observaciones">Ninguna observación</div>
                 @endif
             </div>
         </div>
