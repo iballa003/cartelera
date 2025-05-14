@@ -36,7 +36,7 @@
         }
 
         .cartel {          
-            width: 620px;
+            width: 600px;
             max-width: 100%;
             height: 690px;
             object-fit: fill;
@@ -85,6 +85,7 @@
             margin-bottom: 10px;
             text-align: center;
             box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+            min-width: 10%;
         }
         .sala-bloque strong {
             color: #000000;
@@ -170,8 +171,8 @@
                             <span style="color: #e80000;">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
+                                  width="30"
+                                  height="30"
                                   viewBox="0 0 24 24"
                                   fill="none"
                                   stroke="currentColor"
@@ -190,8 +191,9 @@
                 @endif
 
 
-                    @if ($pelicula->sesiones->isNotEmpty())
+        @if ($pelicula->sesiones->isNotEmpty())
         @php
+            
             $sesionesPorSala = $pelicula->sesiones->groupBy('sala');
         @endphp
 

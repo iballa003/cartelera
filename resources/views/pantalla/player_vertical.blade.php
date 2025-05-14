@@ -30,7 +30,7 @@
             min-height: 30vh;
             max-height: 35vh;
             box-sizing: border-box;
-            margin-top: 50px;
+            margin-top: 90px;
             justify-content: center;
         }
 
@@ -40,12 +40,13 @@
             height: auto;
             display: inline-block;
             overflow: hidden;
+
             text-align: center;
         }
 
         .cartel-wrapper img.cartel {
             max-height: 33%;
-            max-width: 240px;
+            max-width: 500px;
             min-width: 50px;
             height: auto;
             object-fit: contain;
@@ -66,13 +67,15 @@
 
         .threeD-badge {
             position: absolute;
-            top: 66px;
+            top: 180px;
             left: 10px;
             background-color: #a10000;
             color: white;
             padding: 5px 10px;
             border-radius: 6px;
-            font-size: 1em;
+            width: 12%; 
+            text-align: center; 
+            font-size: 40px;
             z-index: 2;
         }
 
@@ -140,7 +143,7 @@
             <div class="pelicula">
                 <div class="cartel-wrapper">
                     @if ($pelicula->edad_minima)
-                        <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" class="edad-badge">
+                        <img src="{{ asset('edades/' . $pelicula->edad_minima . '.png') }}" alt="Edad mínima" style="position: absolute; top: 10px; left: 10px; height: 140px; width: 20%;">
                     @endif
 
                     @if ($pelicula->es_3d)

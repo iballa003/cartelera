@@ -78,8 +78,12 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
-                        toastr.success(response.message);
-                        fila.remove();
+                        if (response.error) {
+                            toastr.error(response.error);
+                        }else{
+                            toastr.success(response.message);
+                            fila.remove();
+                        }  
                     },
                     error: function(xhr) {
                         console.error('ERROR: ', xhr.status, xhr.responseText)

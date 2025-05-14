@@ -57,6 +57,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Guardar película</button>
+        <a href="{{ route('peliculas.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>
 @endsection

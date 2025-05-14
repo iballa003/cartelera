@@ -52,9 +52,12 @@
         }
 
         .threeD-badge {
-            top: 70px;
+            top: 170px;
             left: 10px;
             background-color: #a10000;
+            width: 12%; 
+            text-align: center; 
+            font-size: 40px;
         }
 
         .info {
@@ -67,7 +70,7 @@
         }
 
         .titulo {
-            font-size: {{$peliculas->first()->observaciones ? '5.5em' : '6.5em'}};
+            font-size: @if ($peliculas->first()) {{$peliculas->first()->observaciones ? '5.5em' : '6.5em'}} @endif;
             margin-bottom: 90px;
         }
 
@@ -92,6 +95,7 @@
             border-radius: 8px;
             margin-bottom: 10px;
             text-align: center;
+            
         }
 
         .sala-bloque strong {
@@ -143,8 +147,8 @@
                     <span style="color: #e80000;">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
+                          width="30"
+                          height="30"
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"
